@@ -1,0 +1,41 @@
+name: MLflow Project CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up job
+      run: echo "Start CI job"
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12.7
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12.7'
+
+    - name: Check Env
+      run: |
+        python --version
+        pip --version
+
+    - name: Install dependencies
+      run: |
+        pip install mlflow==2.19.0
+
+    - name: Run MLflow Project
+      run: |
+        cd MLProject
+        mlflow run .
+
+    - name: Get latest MLflow run_id
+      run: |
+        echo "MLflow run finished"
