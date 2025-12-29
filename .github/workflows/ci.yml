@@ -3,8 +3,6 @@ name: MLflow Project CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   retrain:
@@ -17,10 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Python 3.10
+    - name: Set up Python 3.12.7
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.12.7'
 
     - name: Check Env
       run: |
@@ -29,13 +27,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
-        pip install mlflow==2.19.0
+        pip install mlflow==2.19.0 scikit-learn pandas numpy
 
     - name: Run MLflow Project
       run: |
         cd MLProject
         mlflow run .
-
-    - name: Get latest MLflow run_id
-      run: echo "MLflow run finished"
