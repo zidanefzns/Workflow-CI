@@ -1,6 +1,4 @@
-name: deposit-prediction
-
-conda_env: conda.yaml
+name: deposit-prediction-ci
 
 entry_points:
   main:
