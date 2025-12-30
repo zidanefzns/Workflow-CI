@@ -1,27 +1,32 @@
-name: MLflow CI
+name: MLflow CI Basic
 
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
-    - name: Check Python
-      run: python --version
+      - name: Check Python version
+        run: python --version
 
-    - name: Install MLflow
-      run: pip install mlflow==2.19.0
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mlflow==2.19.0 scikit-learn pandas numpy
 
-    - name: Run MLflow Project
-      run: mlflow run MLProject
+      - name: Run training (MLflow)
+        run: |
+          cd MLProject
+          python modelling.py
