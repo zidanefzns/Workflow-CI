@@ -1,7 +1,5 @@
 name: deposit-prediction-ci
 
-env_manager: virtualenv
-
 entry_points:
   main:
     command: "python modelling.py"
